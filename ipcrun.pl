@@ -114,12 +114,13 @@ sub spreadPids {
 			if (getPidState($cp) eq 'defunct') {
 				print "PID:".$cp." KEY:$key has passed away. Will feed another work later\n";
 				finishPid($key);
+				oneProc($key);
 				#here will create replacement process or what ?
 			}
 		}
 		print "arr size:".scalar @arr."\n";
 		last if scalar @arr > 9;
-		usleep(10000);
+		usleep(100000);
 	}
 
 	print "REAP children\n";

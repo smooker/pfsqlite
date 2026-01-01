@@ -30,7 +30,7 @@ while(my $dat = $sth->fetchrow_hashref()) {
 	if (!$mail) {
 		die "NO MAIL\n";
 	}
-	print "alive...\n";
+	print "alive\n";
 
 	my $pop = Net::POP3->new('pop3.abv.bg', SSL => 1, Timeout => 60, Debug => 1);
 	if ($pop->login($mail, $pass)) {

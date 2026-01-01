@@ -11,13 +11,18 @@ my $dbh = DBI->connect("dbi:SQLite:dbname=test.db","","", {
 });
 
 open FILE, "<dictrules3.txt";
+my $sth = $dbh->prepare("BEGIN");
+$sth->execute();
+
 while(<FILE>) {
 	print $_;
 	chomp;
-	my $sth = $dbh->prepare("INSERT OR IGNORE INTO tbl2 (password, pid, status) VALUES (?1, ?2, ?3)");
+	$sth = $dbh->prepare("INSERT OR IGNORE INTO tbl2 (password, pid, status) VALUES (?1, ?2, ?3)");
 	$sth->execute($_, 1, 2);
-
 }
+$sth = $dbh->prepare("END");
+$sth->execute();
+
 close FILE;
 #
 exit();
